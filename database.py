@@ -2,8 +2,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-SQL_DATABASE_URL = 'sqlite:///./citydatacenter.db'
+SQL_DATABASE_URL = 'postgresql://postgres.reqvjzpzpuqqcpkkwwjv:Citycomplain123456cc@aws-0-ap-northeast-1.pooler.supabase.com:5432/postgres'
 
-engine = create_engine(SQL_DATABASE_URL, connect_args={'check_same_thread': False})
+engine = create_engine(SQL_DATABASE_URL)
 sessionlocal = sessionmaker(autoflush= False, autocommit= False, bind=engine)
 Base = declarative_base()
