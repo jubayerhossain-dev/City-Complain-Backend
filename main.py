@@ -10,18 +10,26 @@ from fastapi.responses import JSONResponse
 from Authentication.auth import token_decode
 from Authentication import auth
 from Admin import admin
+import os
 
 
 app = FastAPI()
 
 
+allowed_origins = [
+    origin.strip().rstrip("/")
+    for origin in os.getenv("CORS_ORIGINS", "").split(",")
+    if origin.strip()
+]
+allowed_origins.extend([
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:5175",
+])
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:5174",
-        "http://localhost:5175",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

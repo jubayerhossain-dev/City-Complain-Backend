@@ -82,7 +82,7 @@ def user_login_matching(email, password, db):
 @router.post('/User_Login')
 def user_login(db: db_dependency, from_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     user_authentication = user_login_matching(from_data.username, from_data.password, db)
-    if user_authentication is None:
+    if not user_authentication:
         raise HTTPException(status_code=404, detail='Failed Authentication')
     else:
         token = create_access_token(user_authentication.email, user_authentication.id, user_authentication.role, timedelta(minutes=30))
